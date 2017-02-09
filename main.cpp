@@ -10,7 +10,7 @@ char *memory;
 size_t memory_size;
 
 int main() {
-  FILE *f = fopen("ram_crashed.raw", "rb");
+  FILE *f = fopen("ram.raw", "rb");
   fseek(f, 0, SEEK_END);
   memory_size = static_cast<size_t>(ftell(f));
   fseek(f, 0, SEEK_SET);
