@@ -19,7 +19,7 @@ int main() {
   fread(memory, 1, memory_size, f);
 
 //  cout << Prime1JsonDumper::parseHeap().dump(2) << endl;
-//  cout << Prime1JsonDumper::parsePlayer().dump(2) << endl;
+  cout << Prime1JsonDumper::parsePlayer().dump(2) << endl;
 //  cout << Prime1JsonDumper::parseWorld().dump(2) << endl;
 //  cout << Prime1JsonDumper::parsePool().dump(2) << endl;
 //  cout << Prime1JsonDumper::parsePoolBasic().dump(2) << endl;
