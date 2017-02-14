@@ -1,7 +1,12 @@
 #include <iostream>
 #include <cstdio>
+#include <prime1/CGameState.hpp>
+#include <prime1/CStateManager.hpp>
+#include <prime1/CGameGlobalObjects.hpp>
 #include "prime1/Prime1JsonDumper.hpp"
 #include "prime1/Prime1ConsoleDumper.hpp"
+
+#include "CRandom16Impl.hpp"
 
 using namespace std;
 using namespace nlohmann;
@@ -18,13 +23,54 @@ int main() {
   memory = new char[memory_size];
   fread(memory, 1, memory_size, f);
 
+  CStateManager manager(CStateManager::LOCATION);
+//  cout << hex << manager.player.deref().ptr() << dec << endl;
+//  cout << hex << manager.random.seed.read() << endl;
+
+//  CRandom16Impl impl(manager.random.seed.read());
+  CRandom16Impl impl(0x91F76E96);
+
+  for (int i = 0; i < 100; i++) {
+    cout << hex << impl.GetSeed() << dec << " ";
+    cout << impl.Float() << endl;
+  }
+
+//  CObjectList list = manager.allObjs.deref();
+//
+//  cout << "Size: " << list.count.read() << endl;
+//  int counter = 0;
+//  int id = list.firstID.read();
+//  cout << hex;
+//  while (id != 0xFFFF) {
+//    counter++;
+//    SObjectListEntry entry = list.list[id & 0x3FF];
+//
+//    CEntity entity = entry.entity.deref();
+//    if (entity.editorID.read() == 0x340286) {
+//      cout << "ID: " << entity.editorID.read() << endl;
+//      cout << "Address: " << entity.editorID.ptr() << endl;
+//      cout << "State flag: " << (uint32_t)entity.status.read() << endl;
+//
+//      cout << "State flag address: " << entity.status.ptr() << endl;
+//    }
+//    int newId = entry.next.read();
+//    if (id == newId) break;
+//    id = newId;
+//    if (counter > 0x3FF) break; //somethign went wrong
+//  }
+//  if (counter != list.count.read()) {
+//    cout << "Something is very wrong" << endl;
+//  }
+//  cout << dec;
+
+
 //  cout << Prime1JsonDumper::parseHeap().dump(2) << endl;
-  cout << Prime1JsonDumper::parsePlayer().dump(2) << endl;
+//  cout << Prime1JsonDumper::parsePlayerRaw().dump(2) << endl;
 //  cout << Prime1JsonDumper::parseWorld().dump(2) << endl;
 //  cout << Prime1JsonDumper::parsePool().dump(2) << endl;
 //  cout << Prime1JsonDumper::parsePoolBasic().dump(2) << endl;
-  cout << Prime1JsonDumper::parsePoolSummary().dump(2) << endl;
-  cout << Prime1JsonDumper::parseHeapStats().dump(2) << endl;
+//  cout << Prime1JsonDumper::parsePoolSummary().dump(2) << endl;
+//  cout << Prime1JsonDumper::parseHeapStats().dump(2) << endl;
 
 //  MemoryBuffer buff(0x1000);
 //  Prime1ConsoleDumper::dump(buff);
