@@ -28,40 +28,45 @@ int main() {
 //  cout << hex << manager.random.seed.read() << endl;
 
 //  CRandom16Impl impl(manager.random.seed.read());
-  CRandom16Impl impl(0x91F76E96);
-
-  for (int i = 0; i < 100; i++) {
-    cout << hex << impl.GetSeed() << dec << " ";
-    cout << impl.Float() << endl;
-  }
-
-//  CObjectList list = manager.allObjs.deref();
+//  CRandom16Impl impl(0x91F76E96);
 //
-//  cout << "Size: " << list.count.read() << endl;
-//  int counter = 0;
-//  int id = list.firstID.read();
-//  cout << hex;
-//  while (id != 0xFFFF) {
-//    counter++;
-//    SObjectListEntry entry = list.list[id & 0x3FF];
-//
-//    CEntity entity = entry.entity.deref();
+//  for (int i = 0; i < 100; i++) {
+//    cout << hex << impl.GetSeed() << dec << " ";
+//    cout << impl.Float() << endl;
+//  }
+
+  CObjectList list = manager.allObjs.deref();
+
+  cout << "Size: " << list.count.read() << endl;
+  int counter = 0;
+  int id = list.firstID.read();
+  cout << hex;
+  while (id != 0xFFFF) {
+    counter++;
+    SObjectListEntry entry = list.list[id & 0x3FF];
+
+    CEntity entity = entry.entity.deref();
 //    if (entity.editorID.read() == 0x340286) {
-//      cout << "ID: " << entity.editorID.read() << endl;
-//      cout << "Address: " << entity.editorID.ptr() << endl;
+      cout << "ID: " << entity.editorID.read() << endl;
+      cout << "Address: " << entity.editorID.ptr() << endl;
+      cout << "Name loc: " << entity.name.ptr() << endl;
+      cout << "Name string ptr: " << entity.name.data.read() << endl;
+      cout << "Name: " << entity.name.read_str() << endl;
+      cout << "Unknowns: " << entity.name.unk2.read() << " | " << entity.name.unk3.read() << " | "<< entity.name.unk4.read() << endl;
 //      cout << "State flag: " << (uint32_t)entity.status.read() << endl;
 //
 //      cout << "State flag address: " << entity.status.ptr() << endl;
+    cout << "------------------------------" << endl << endl;
 //    }
-//    int newId = entry.next.read();
-//    if (id == newId) break;
-//    id = newId;
-//    if (counter > 0x3FF) break; //somethign went wrong
-//  }
-//  if (counter != list.count.read()) {
-//    cout << "Something is very wrong" << endl;
-//  }
-//  cout << dec;
+    int newId = entry.next.read();
+    if (id == newId) break;
+    id = newId;
+    if (counter > 0x3FF) break; //somethign went wrong
+  }
+  if (counter != list.count.read()) {
+    cout << "Something is very wrong" << endl;
+  }
+  cout << dec;
 
 
 //  cout << Prime1JsonDumper::parseHeap().dump(2) << endl;
